@@ -1,1 +1,142 @@
-/* Add your CSS here */
+/* The five project colors are stored here so they are easy to reuse. */
+:root {
+	--forest-green: #19350C;
+	--olive-green: #687D31;
+	--light-gray: #D5D3CC;
+	--teal: #406768;
+	--sky-blue: #6FA9BB;
+}
+
+/* Basic page styles */
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	background-color: var(--light-gray);
+	color: var(--forest-green);
+	font-family: Arial, sans-serif;
+	line-height: 1.6;
+}
+
+/* The teal header creates a strong introduction to the timeline. */
+header {
+	padding: 4rem 1.5rem;
+	background-color: var(--teal);
+	color: var(--light-gray);
+	text-align: center;
+}
+
+header div {
+	max-width: 900px;
+	margin: 0 auto;
+}
+
+/* The hero panel uses transparency and blur for a simple glass effect. */
+.hero-content {
+	padding: 2rem;
+	border: 1px solid rgba(213, 211, 204, 0.7);
+	border-radius: 16px;
+	background-color: rgba(213, 211, 204, 0.18);
+	box-shadow: 0 8px 24px rgba(25, 53, 12, 0.2);
+	backdrop-filter: blur(10px);
+}
+
+header img {
+	width: 150px;
+	margin-bottom: 1rem;
+}
+
+h1,
+h2,
+h3 {
+	margin-top: 0;
+	line-height: 1.2;
+}
+
+h1 {
+	font-size: clamp(2rem, 5vw, 4rem);
+}
+
+.sustainability-word {
+	color: var(--sky-blue);
+}
+
+header p {
+	max-width: 700px;
+	margin: 0 auto;
+	font-size: 1.1rem;
+}
+
+/* The timeline scrolls horizontally on larger screens. */
+section {
+	display: flex;
+	overflow-x: auto;
+	gap: 1.5rem;
+	padding: 3rem 1.5rem 2rem;
+	margin: 0;
+}
+
+section > div {
+	flex: 0 0 320px;
+	min-height: 260px;
+	padding: 1.5rem;
+	border: 3px solid var(--olive-green);
+	border-radius: 8px;
+	background-color: var(--light-gray);
+	box-shadow: 6px 6px 0 var(--teal);
+	transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+/* Blue is the interactive hover color for each timeline card. */
+section > div:hover {
+	background-color: var(--sky-blue);
+	transform: translateY(-6px);
+}
+
+section h2 {
+	color: var(--olive-green);
+	font-size: 2rem;
+}
+
+section h3 {
+	color: var(--teal);
+	font-size: 1.25rem;
+}
+
+section p {
+	margin-bottom: 0;
+}
+
+body > p {
+	padding: 1rem 1.5rem 2rem;
+	color: var(--teal);
+	text-align: center;
+	font-weight: bold;
+}
+
+/* Stack the cards vertically on tablets and smaller screens. */
+@media (max-width: 900px) {
+	section {
+		display: grid;
+		overflow-x: visible;
+		grid-template-columns: 1fr;
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+}
+
+@media (max-width: 600px) {
+	header {
+		padding: 3rem 1rem;
+	}
+
+	section {
+		padding: 2rem 1rem;
+	}
+
+	section > div {
+		width: 100%;
+	}
+}
