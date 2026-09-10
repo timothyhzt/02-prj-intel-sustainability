@@ -1,7 +1,8 @@
-/* The five project colors are stored here so they are easy to reuse. */
+/* The six project colors are stored here so they are easy to reuse. */
 :root {
 	--forest-green: #19350C;
 	--olive-green: #687D31;
+	--light-green: #A8C27D;
 	--light-gray: #D5D3CC;
 	--teal: #406768;
 	--sky-blue: #6FA9BB;
@@ -14,17 +15,19 @@
 
 body {
 	margin: 0;
-	background-color: var(--light-gray);
+	background-color: #D6F6D5 ;
 	color: var(--forest-green);
 	font-family: Arial, sans-serif;
 	line-height: 1.6;
 }
 
-/* The teal header creates a strong introduction to the timeline. */
+
 header {
 	padding: 4rem 1.5rem;
+  background-image: url('img/sustainbackground.png');
+  background-size: cover;
 	background-color: var(--teal);
-	color: var(--light-gray);
+	color: var(--light-green);
 	text-align: center;
 }
 
@@ -40,7 +43,7 @@ header div {
 	border-radius: 16px;
 	background-color: rgba(213, 211, 204, 0.18);
 	box-shadow: 0 8px 24px rgba(25, 53, 12, 0.2);
-	backdrop-filter: blur(10px);
+	backdrop-filter: blur(20px);
 }
 
 header img {
@@ -69,61 +72,134 @@ header p {
 	font-size: 1.1rem;
 }
 
-/* The timeline scrolls horizontally on larger screens. */
-section {
+/* Place the About Intel section beside the timeline. */
+.content-layout {
 	display: flex;
-	overflow-x: auto;
+	align-items: stretch;
 	gap: 1.5rem;
-	padding: 3rem 1.5rem 2rem;
-	margin: 0;
+	max-width: 1400px;
+	margin: 0 auto;
+	padding: 2rem 1.5rem;
 }
 
-section > div {
-	flex: 0 0 320px;
-	min-height: 260px;
+.about-intel {
+	flex: 0 0 28%;
+	align-self: flex-start;
 	padding: 1.5rem;
 	border: 3px solid var(--olive-green);
 	border-radius: 8px;
-	background-color: var(--light-gray);
+	background-color: white;
 	box-shadow: 6px 6px 0 var(--teal);
-	transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.about-intel h2 {
+	color: var(--olive-green);
+}
+
+.about-intel p:last-child {
+	margin-bottom: 0;
+}
+
+.timeline-area {
+	flex: 1;
+	min-width: 0;
+}
+
+/* Keep the timeline horizontal so the cards can be explored side to side. */
+#timeline {
+	display: flex;
+	overflow-x: auto;
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+	gap: 1rem;
+	padding: 0.5rem 0.5rem 1rem;
+	margin: 0;
+	overscroll-behavior-inline: contain;
+	scroll-snap-type: x mandatory;
+}
+
+#timeline::-webkit-scrollbar {
+	display: none;
+}
+
+#timeline > div {
+	flex: 0 0 300px;
+	min-height: 260px;
+	scroll-snap-align: start;
+	padding: 1rem;
+	border: 3px solid var(--olive-green);
+	border-radius: 8px;
+	background-color: white;
+	box-shadow: 6px 6px 0 var(--teal);
+	transition: background-color 0.2s ease;
+}
+
+/* Hide each description until its card is hovered or focused. */
+.card-description {
+	opacity: 0;
+	max-height: 0;
+	overflow: hidden;
+	transition: opacity 0.2s ease, max-height 0.2s ease;
 }
 
 /* Blue is the interactive hover color for each timeline card. */
-section > div:hover {
-	background-color: var(--sky-blue);
-	transform: translateY(-6px);
+#timeline > div:hover,
+#timeline > div:focus-within {
+	background-color: #E0F2FE ;
 }
 
-section h2 {
+#timeline > div:hover .card-description,
+#timeline > div:focus-within .card-description {
+	opacity: 1;
+	max-height: 260px;
+}
+
+#timeline h2 {
 	color: var(--olive-green);
 	font-size: 2rem;
 }
 
-section h3 {
+#timeline h3 {
 	color: var(--teal);
 	font-size: 1.25rem;
 }
 
-section p {
+#timeline p {
 	margin-bottom: 0;
 }
 
-body > p {
-	padding: 1rem 1.5rem 2rem;
+.timeline-note {
+	padding: 1rem 0 0;
 	color: var(--teal);
 	text-align: center;
 	font-weight: bold;
 }
 
-/* Stack the cards vertically on tablets and smaller screens. */
+/* Stack the About section above the timeline on smaller screens. */
 @media (max-width: 900px) {
-	section {
+	.content-layout {
+		flex-direction: column;
+	}
+
+	.about-intel {
+		flex-basis: auto;
+	}
+
+	#timeline {
 		display: grid;
-		overflow-x: visible;
 		grid-template-columns: 1fr;
-		max-width: 1200px;
-		margin: 0 auto;
+		overflow-x: visible;
+		padding-inline: 0;
+	}
+
+	#timeline > div {
+		width: 100%;
+		flex: none;
+	}
+
+	.card-description {
+		opacity: 1;
+		max-height: none;
 	}
 }
 
@@ -132,11 +208,8 @@ body > p {
 		padding: 3rem 1rem;
 	}
 
-	section {
-		padding: 2rem 1rem;
+	.content-layout {
+		padding: 1.5rem 1rem;
 	}
 
-	section > div {
-		width: 100%;
-	}
 }
