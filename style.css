@@ -76,6 +76,63 @@ h1 {
 	margin-bottom: 0;
 }
 
+.newsletter-panel {
+	background-color: white;
+}
+
+.newsletter-panel .form-label {
+	color: var(--forest-green);
+	font-weight: bold;
+}
+
+.newsletter-panel .form-control {
+	border: 2px solid var(--teal);
+	background-color: var(--light-gray);
+	color: var(--forest-green);
+}
+
+.newsletter-panel .form-control:focus {
+	border-color: var(--sky-blue);
+	box-shadow: 0 0 0 0.2rem rgba(111, 169, 187, 0.3);
+}
+
+.newsletter-panel .btn-primary {
+	border-color: var(--forest-green);
+	background-color: var(--forest-green);
+}
+
+.newsletter-panel .btn-primary:hover,
+.newsletter-panel .btn-primary:focus {
+	border-color: var(--teal);
+	background-color: var(--teal);
+}
+
+.modal-content {
+	border: 3px solid var(--olive-green);
+	border-radius: 8px;
+	background-color: var(--light-gray);
+	color: var(--forest-green);
+	box-shadow: 6px 6px 0 var(--teal);
+}
+
+.modal-header {
+	border-bottom: 2px solid var(--olive-green);
+	background-color: var(--forest-green);
+	color: white;
+}
+
+.modal-header .modal-title {
+	color: var(--light-green);
+}
+
+.modal-body {
+	background-color: white;
+}
+
+.modal-body img {
+	border: 2px solid var(--sky-blue);
+}
+
 .site-footer {
 	margin-top: 2rem;
 	background-color: var(--forest-green);
@@ -110,14 +167,13 @@ h1 {
 
 #timeline > div {
 	flex: 0 0 calc((100% - 1rem) / 2);
-	height: 300px;
+	height: 360px;
 	scroll-snap-align: start;
 	padding: 1rem;
 	border: 3px solid var(--olive-green);
 	border-radius: 8px;
 	background-color: white;
 	box-shadow: 6px 6px 0 var(--teal);
-	transition: background-color 0.2s ease, outline 0.2s ease;
 }
 
 /* Keep the image and description in the same fixed-size area. */
@@ -134,7 +190,6 @@ h1 {
 	height: 100%;
 	margin: 0;
 	border-radius: 4px;
-	transition: opacity 0.2s ease;
 }
 
 .card-media img {
@@ -146,22 +201,6 @@ h1 {
 	align-items: center;
 	padding: 0.5rem;
 	background-color: #E0F2FE;
-	opacity: 0;
-}
-
-/* Blue is the interactive hover color for each timeline card. */
-#timeline > div:hover,
-#timeline > div:focus-within {
-	background-color: #E0F2FE ;
-}
-
-#timeline > div:hover .card-description,
-#timeline > div:focus-within .card-description {
-	opacity: 1;
-}
-
-#timeline > div:hover .card-media img,
-#timeline > div:focus-within .card-media img {
 	opacity: 0;
 }
 

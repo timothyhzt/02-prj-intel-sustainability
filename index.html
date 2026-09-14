@@ -63,6 +63,7 @@
           decades of technological innovation.
         </p>
       </div>
+      <button class="btn btn-outline-primary btn-sm mt-3" type="button" data-bs-toggle="modal" data-bs-target="#timeline-modal">Learn More</button>
     </div>
 
     <!-- Card 2: 1971 -->
@@ -77,6 +78,7 @@
           of computing devices.
         </p>
       </div>
+      <button class="btn btn-outline-primary btn-sm mt-3" type="button" data-bs-toggle="modal" data-bs-target="#timeline-modal">Learn More</button>
     </div>
 
     <!-- Card 3: 1978 -->
@@ -90,6 +92,7 @@
           that drives countless PCs and servers in the modern era.
         </p>
       </div>
+      <button class="btn btn-outline-primary btn-sm mt-3" type="button" data-bs-toggle="modal" data-bs-target="#timeline-modal">Learn More</button>
     </div>
 
     <!-- Card 4: 1985 -->
@@ -104,6 +107,7 @@
           personal computers.
         </p>
       </div>
+      <button class="btn btn-outline-primary btn-sm mt-3" type="button" data-bs-toggle="modal" data-bs-target="#timeline-modal">Learn More</button>
     </div>
 
     <!-- Card 5: 2006 -->
@@ -119,6 +123,7 @@
           manufacturing to reverse this trend.
         </p>
       </div>
+      <button class="btn btn-outline-primary btn-sm mt-3" type="button" data-bs-toggle="modal" data-bs-target="#timeline-modal">Learn More</button>
     </div>
 
     <!-- Card 6: 2020 -->
@@ -133,6 +138,7 @@
           progress on climate action, water stewardship, and waste reduction.
         </p>
       </div>
+      <button class="btn btn-outline-primary btn-sm mt-3" type="button" data-bs-toggle="modal" data-bs-target="#timeline-modal">Learn More</button>
     </div>
 
     <!-- Card 7: 2022 -->
@@ -147,6 +153,7 @@
           by 2040, building on years of environmental initiatives.
         </p>
       </div>
+      <button class="btn btn-outline-primary btn-sm mt-3" type="button" data-bs-toggle="modal" data-bs-target="#timeline-modal">Learn More</button>
     </div>
 
     <!-- Card 8: 2023 -->
@@ -161,6 +168,7 @@
           toward Intel's long-term sustainability goals.
         </p>
       </div>
+      <button class="btn btn-outline-primary btn-sm mt-3" type="button" data-bs-toggle="modal" data-bs-target="#timeline-modal">Learn More</button>
     </div>
 
     <!-- Card 9: 2024 -->
@@ -175,9 +183,10 @@
           next-generation sustainable semiconductor manufacturing.
         </p>
       </div>
+      <button class="btn btn-outline-primary btn-sm mt-3" type="button" data-bs-toggle="modal" data-bs-target="#timeline-modal">Learn More</button>
     </div>
       </section>
-      <p class="timeline-note">Scroll to view more | Hover over the cards to learn more!</p>
+      <p class="timeline-note">Scroll to view more!</p>
     </div>
 
     <!-- Weekly newsletter form -->
@@ -197,6 +206,22 @@
     </div>
     </div>
   </main>
+
+  <!-- Shared timeline details modal -->
+  <div class="modal fade" id="timeline-modal" tabindex="-1" aria-labelledby="timeline-modal-title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title h4" id="timeline-modal-title"></h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <img class="img-fluid rounded mb-3" id="timeline-modal-image" src="" alt="" />
+          <p id="timeline-modal-description" class="mb-0"></p>
+        </div>
+      </div>
+    </div>
+  </div>
 
     <!-- Footer links -->
     <footer class="site-footer py-4">
@@ -267,6 +292,23 @@
     directionObserver.observe(document.body, {
       attributes: true,
       attributeFilter: ["class", "dir", "lang"]
+    });
+
+    const timelineModal = document.querySelector("#timeline-modal");
+    const timelineModalTitle = document.querySelector("#timeline-modal-title");
+    const timelineModalImage = document.querySelector("#timeline-modal-image");
+    const timelineModalDescription = document.querySelector("#timeline-modal-description");
+
+    timelineModal.addEventListener("show.bs.modal", (event) => {
+      const card = event.relatedTarget.closest("#timeline > div");
+      const year = card.querySelector("h2").textContent.trim();
+      const title = card.querySelector("h3").textContent.trim();
+      const image = card.querySelector(".card-media img");
+
+      timelineModalTitle.textContent = `${year}: ${title}`;
+      timelineModalImage.src = image.src;
+      timelineModalImage.alt = image.alt;
+      timelineModalDescription.textContent = card.querySelector(".card-description").textContent.trim();
     });
 
     timelineArea.addEventListener("wheel", (event) => {
