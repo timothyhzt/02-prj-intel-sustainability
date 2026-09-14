@@ -36,7 +36,8 @@ header {
 	border-radius: 16px;
 	background-color: rgba(213, 211, 204, 0.18);
 	box-shadow: 0 8px 24px rgba(25, 53, 12, 0.2);
-	backdrop-filter: blur(20px);
+	backdrop-filter: blur(10px);
+  max-width: 50%;
 }
 
 header img {
@@ -75,9 +76,24 @@ h1 {
 	margin-bottom: 0;
 }
 
+.site-footer {
+	margin-top: 2rem;
+	background-color: var(--forest-green);
+	color: white;
+}
+
+.site-footer h2 {
+	color: var(--light-green);
+}
+
+.site-footer a {
+	color: var(--light-green);
+}
+
 /* Keep the timeline horizontal so the cards can be explored side to side. */
 #timeline {
 	display: flex;
+	flex-wrap: nowrap;
 	overflow-x: auto;
 	scrollbar-width: none;
 	-ms-overflow-style: none;
@@ -93,7 +109,7 @@ h1 {
 }
 
 #timeline > div {
-	flex: 0 0 300px;
+	flex: 0 0 calc((100% - 1rem) / 2);
 	height: 300px;
 	scroll-snap-align: start;
 	padding: 1rem;
@@ -172,15 +188,11 @@ h1 {
 
 @media (max-width: 900px) {
 	#timeline {
-		display: grid;
-		grid-template-columns: 1fr;
-		overflow-x: visible;
 		padding-inline: 0;
 	}
 
 	#timeline > div {
-		width: 100%;
-		flex: none;
+		flex: 0 0 100%;
 	}
 
 	.card-media {

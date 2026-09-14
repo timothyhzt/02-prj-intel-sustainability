@@ -180,54 +180,107 @@
       <p class="timeline-note">Scroll to view more | Hover over the cards to learn more!</p>
     </div>
 
-    <!-- Localization and future form section -->
+    <!-- Weekly newsletter form -->
     <aside class="col-12 col-lg-3">
-      <div class="panel localization-panel h-100 p-4">
-        <h2>Localization</h2>
-        <p>Choose the reading direction that matches your language.</p>
-        <div class="btn-group w-100" role="group" aria-label="Text direction">
-          <button class="btn btn-primary" type="button" data-direction="ltr" aria-pressed="true">LTR</button>
-          <button class="btn btn-outline-primary" type="button" data-direction="rtl" aria-pressed="false">RTL</button>
-        </div>
-        <p id="direction-status" class="small mt-3 mb-4" aria-live="polite">Left-to-right text is active.</p>
-
-        <hr />
-        <h2 class="h4 mt-4">Stay connected</h2>
-        <p class="mb-0">A Bootstrap contact form will be added here in the next project step.</p>
+      <div class="panel newsletter-panel h-100 p-4">
+        <h2>Weekly Newsletter</h2>
+        <p>Get Intel sustainability news delivered to your inbox.</p>
+        <form id="newsletter-form">
+          <div class="mb-3">
+            <label class="form-label" for="subscriber-email">Email address</label>
+            <input class="form-control" id="subscriber-email" type="email" placeholder="name@example.com" required />
+          </div>
+    
+          <button class="btn btn-primary w-100" type="submit">Subscribe</button>
+        </form>
       </div>
     </div>
     </div>
   </main>
 
+    <!-- Footer links -->
+    <footer class="site-footer py-4">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-12 col-md-4">
+            <h2 class="h5">Privacy Policy</h2>
+            <p class="mb-0">Learn how we protect and use your information.</p>
+          </div>
+          <div class="col-12 col-md-4">
+            <h2 class="h5">Terms of Use</h2>
+            <p class="mb-0">Review the terms for using this website.</p>
+          </div>
+          <div class="col-12 col-md-4">
+            <h2 class="h5">Contact</h2>
+            <p class="mb-0">Email us at <a href="mailto:contact@example.com">intel@placeholder.com</a>.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <script>
     const timeline = document.querySelector("#timeline");
-    const directionButtons = document.querySelectorAll("[data-direction]");
-    const directionStatus = document.querySelector("#direction-status");
+    const timelineArea = document.querySelector(".timeline-area");
+    const newsletterForm = document.querySelector("#newsletter-form");
+    const rtlLanguages = ["ar", "dv", "fa", "he", "ku", "ps", "sd", "ur", "yi"];
 
-    directionButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        const direction = button.dataset.direction;
-        document.documentElement.dir = direction;
-        directionButtons.forEach((option) => {
-          const isActive = option === button;
-          option.classList.toggle("btn-primary", isActive);
-          option.classList.toggle("btn-outline-primary", !isActive);
-          option.setAttribute("aria-pressed", isActive);
-        });
-        directionStatus.textContent = direction === "rtl"
-          ? "Right-to-left text is active."
-          : "Left-to-right text is active.";
-      });
+    newsletterForm.addEventListener("submit", (event) => {
+      event.preventDefault();
     });
 
-    timeline.addEventListener("wheel", (event) => {
+    function getDetectedDirection() {
+      const bodyClasses = document.body.classList;
+      const language = (document.documentElement.lang || document.body.lang || "en").toLowerCase();
+      const languageCode = language.split("-")[0].split("_")[0];
+
+      if (bodyClasses.contains("translated-rtl")) {
+        return "rtl";
+      }
+
+      if (bodyClasses.contains("translated-ltr")) {
+        return "ltr";
+      }
+
+      if (rtlLanguages.includes(languageCode)) {
+        return "rtl";
+      }
+
+      if (document.body.dir === "rtl") {
+        return "rtl";
+      }
+
+      return "ltr";
+    }
+
+    function applyDetectedDirection() {
+      document.documentElement.dir = getDetectedDirection();
+    }
+
+    applyDetectedDirection();
+
+    const directionObserver = new MutationObserver(applyDetectedDirection);
+    directionObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["lang"]
+    });
+    directionObserver.observe(document.body, {
+      attributes: true,
+      attributeFilter: ["class", "dir", "lang"]
+    });
+
+    timelineArea.addEventListener("wheel", (event) => {
       if (timeline.scrollWidth <= timeline.clientWidth) {
         return;
       }
 
+      const horizontalDistance = event.deltaY !== 0 ? event.deltaY : event.deltaX;
+      if (horizontalDistance === 0) {
+        return;
+      }
+
       event.preventDefault();
-        timeline.scrollBy({ left: event.deltaY * 0.5, behavior: "auto" });
+      timeline.scrollLeft += horizontalDistance * 2;
     }, { passive: false });
   </script>
 </body>
