@@ -23,7 +23,6 @@ body {
 
 
 header {
-	padding: 4rem 1.5rem;
   background-image: url('img/sustainbackground.png');
   background-size: cover;
 	background-color: var(--teal);
@@ -31,14 +30,8 @@ header {
 	text-align: center;
 }
 
-header div {
-	max-width: 900px;
-	margin: 0 auto;
-}
-
 /* The hero panel uses transparency and blur for a simple glass effect. */
 .hero-content {
-	padding: 2rem;
 	border: 1px solid rgba(213, 211, 204, 0.7);
 	border-radius: 16px;
 	background-color: rgba(213, 211, 204, 0.18);
@@ -66,26 +59,8 @@ h1 {
 	color: var(--sky-blue);
 }
 
-header p {
-	max-width: 700px;
-	margin: 0 auto;
-	font-size: 1.1rem;
-}
-
-/* Place the About Intel section beside the timeline. */
-.content-layout {
-	display: flex;
-	align-items: stretch;
-	gap: 1.5rem;
-	max-width: 1400px;
-	margin: 0 auto;
-	padding: 2rem 1.5rem;
-}
-
-.about-intel {
-	flex: 0 0 28%;
-	align-self: flex-start;
-	padding: 1.5rem;
+/* Shared panels keep the three-column layout visually consistent. */
+.panel {
 	border: 3px solid var(--olive-green);
 	border-radius: 8px;
 	background-color: white;
@@ -98,11 +73,6 @@ header p {
 
 .about-intel p:last-child {
 	margin-bottom: 0;
-}
-
-.timeline-area {
-	flex: 1;
-	min-width: 0;
 }
 
 /* Keep the timeline horizontal so the cards can be explored side to side. */
@@ -124,22 +94,43 @@ header p {
 
 #timeline > div {
 	flex: 0 0 300px;
-	min-height: 260px;
+	height: 300px;
 	scroll-snap-align: start;
 	padding: 1rem;
 	border: 3px solid var(--olive-green);
 	border-radius: 8px;
 	background-color: white;
 	box-shadow: 6px 6px 0 var(--teal);
-	transition: background-color 0.2s ease;
+	transition: background-color 0.2s ease, outline 0.2s ease;
 }
 
-/* Hide each description until its card is hovered or focused. */
+/* Keep the image and description in the same fixed-size area. */
+.card-media {
+	position: relative;
+	height: 190px;
+}
+
+.card-media img,
 .card-description {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	border-radius: 4px;
+	transition: opacity 0.2s ease;
+}
+
+.card-media img {
+	object-fit: cover;
+}
+
+.card-description {
+	display: flex;
+	align-items: center;
+	padding: 0.5rem;
+	background-color: #E0F2FE;
 	opacity: 0;
-	max-height: 0;
-	overflow: hidden;
-	transition: opacity 0.2s ease, max-height 0.2s ease;
 }
 
 /* Blue is the interactive hover color for each timeline card. */
@@ -151,7 +142,11 @@ header p {
 #timeline > div:hover .card-description,
 #timeline > div:focus-within .card-description {
 	opacity: 1;
-	max-height: 260px;
+}
+
+#timeline > div:hover .card-media img,
+#timeline > div:focus-within .card-media img {
+	opacity: 0;
 }
 
 #timeline h2 {
@@ -175,16 +170,7 @@ header p {
 	font-weight: bold;
 }
 
-/* Stack the About section above the timeline on smaller screens. */
 @media (max-width: 900px) {
-	.content-layout {
-		flex-direction: column;
-	}
-
-	.about-intel {
-		flex-basis: auto;
-	}
-
 	#timeline {
 		display: grid;
 		grid-template-columns: 1fr;
@@ -197,19 +183,14 @@ header p {
 		flex: none;
 	}
 
-	.card-description {
-		opacity: 1;
-		max-height: none;
+	.card-media {
+		height: 190px;
 	}
 }
 
 @media (max-width: 600px) {
 	header {
-		padding: 3rem 1rem;
-	}
-
-	.content-layout {
-		padding: 1.5rem 1rem;
+		padding-inline: 1rem;
 	}
 
 }
